@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="projects.css">
+    <link rel="shortcut icon" href="img/weblogo.png.png" type="image/x-icon">
+    <script defer src="app.js"></script>
+</head>
+
+
+<body>
+    <header style="--clr:#242424;">
+        <img class="logo" src="img/weblogo.png.png" alt="logo" height="20px" width="auto" draggable="false">
+        <nav>
+            <ul class="nav_links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Project Limitless</a></li>
+                <li><a href="#">Academics</a></li>
+                <li><a href="#">Career</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="holder">
+    <img src="img/DSC03194.JPG" alt="" class="title_img" draggable="false">
+
+    <div class="text_field">
+    <h2>Project Twintail</h2>
+    <h3>2024-2025 -     <a href="#" class="back">back to projects</a></h3>
+<p>Project Twintail is the name given to my final Talit project, which focused on designing and building a custom steering wheel and pedal system—complete with radio communication capabilities—to control an RC car.
+
+Background and Motivation
+The idea stemmed from my early experiences driving an RC car. I found the activity fun, but one issue quickly became apparent: visibility. Whenever the car moved behind objects or out of my line of sight, the likelihood of crashing skyrocketed. At first, this seemed like a serious limitation. However, with time, I realized that full visibility wasn't essential for enjoying casual driving.
+
+Then, one day, a YouTuber named <a href="https://youtu.be/ZPf57CVVyMo">Project Air</a> released a video featuring a tiny but powerful piece of tech: a micro FPV (first-person view) camera. I had never seen this before, and it immediately reignited my interest. This time, I wasn't just focused on solving the visibility issue. I wanted to take things further—why not build an entire sim rig? One with a steering wheel, pedals, and maybe even a custom-designed car.
+
+And so, Project Twintail was born—with the goal of creating a full racing simulator setup to control an RC car remotely.</p>
+
+<br>
+<p>The project began with initial design ideas for the steering wheel, focusing on its layout and the range of functions to be built into it. Since radio communication was being handled using an Arduino, there was considerable flexibility in implementing various features. The RC car itself operates using two primary values: one for the steering angle and another for throttle control. The steering mechanism was initially designed so that the wheel would be attached to a shaft linked to a potentiometer, allowing it to read angular displacement. The throttle, on the other hand, was based on the position of pedals, with a single output value sent to the electronic speed controller (ESC). The ESC operates with pulse-width modulation signals in the range of 1000 to 2000, where 1500 represents the dead zone, values below 1500 result in reverse motion, and values above 1500 correspond to forward movement.
+
+The original design included features such as paddle shifters to simulate artificial gears, and two buttons that allowed the user to toggle between automatic and manual transmission modes. Two additional toggle switches were used to select between "race mode" and "normal mode." In race mode, the steering range was limited to -90° to 90°, offering quick, responsive control, whereas in normal mode, the steering range was extended from -360° to 360°, mimicking a more conventional setup. There was also a mechanism planned to return the steering wheel to the 0° (centered) position automatically. These controls and features were carefully laid out as shown in a reference image created during the design phase. </p>
+
+<br>
+<div class="img_field"><img src="img/wheel_pre.png" alt="" draggable="false"></div>
+<br>
+<p>However, during the process of modeling the wheel in CAD software, a new idea emerged. It became clear that there was no need to adhere to the constraints of a typical road car. Since this was a personal project—specifically a Talit project—it provided a chance to reimagine the design without the limitations of traditional regulations. As a result, the design evolved into a race-inspired steering wheel, similar to those used in Formula 1. In this new format, the auto-centering function was removed, and the wheel operated with a fixed steering lock. While the paddle shifters and dual transmission modes remained, the updated design introduced additional functions such as a neutral button and a pit limiter switch, commonly found on racing vehicles.
+</p><br>
+<p>The new layout also made room for three rotary potentiometers integrated directly onto the steering wheel. These were assigned to specific control parameters: one adjusted brake balance, allowing the driver to shift brake bias between -5 and +5; another controlled a “Strat” function, which managed custom gear and speed configurations with up to ten programmable memory slots; and the third was used for steering trim, which applied a constant offset to the steering signal to help fine-tune wheel alignment—a feature often found in RC car systems. As the project developed further, it became apparent that the potentiometer used for measuring steering angle lacked the necessary precision, so it was replaced with a rotary encoder, which offered more accurate and reliable angular measurements. All structural and mechanical components, including the wheel and pedal systems, were fabricated using 3D printing techniques. </p>
+<br>
+<div class="img_field"><img src="img/wheelcad.PNG" alt="" draggable="false"></div>
+<br>
+<p>Moving on to the pedal assembly, both the throttle and brake values were captured using potentiometers connected to custom-designed pedals. These pedals were also 3D printed and equipped with springs and screws to simulate the physical resistance typically felt when pressing on real car pedals. The analog signals from the pedals were then processed to generate the appropriate speed output for the car.</p>
+<br>
+<div class="img_field"><img src="img/DSC03193.JPG" alt="" draggable="false"></div>
+<br>
+<p>For wireless communication, the system used NRF24L01 radio modules in conjunction with Arduino Pro Mini boards. Since the Pro Mini lacks a USB interface, a USB-to-Serial converter was required for programming and data transfer. To improve the organization and reliability of the electronics, both the transmitter and receiver were mounted on custom-designed printed circuit boards. These boards also housed critical components such as two capacitors to stabilize voltage and a voltage regulator to step down the 5V from the Arduino to the 3.3V required by the NRF24L01 modules.</p>
+<br>
+<div class="img_field"><img src="img/DSC03197.JPG" alt="" draggable="false"></div>
+<br>
+<p>In terms of software (all of the code is on <a href="https://github.com/Leo-Times/Talit_Project_TwinTail">Github</a>), two critical values are transmitted to the RC car: the steering angle and the ESC speed value. The steering angle is directly read from the rotary encoder. The speed control system is more complex. When the wheel is powered on, the system initializes in neutral, which is displayed on the display, and defaults to automatic mode with the pit limiter enabled. To start driving, the user must upshift into drive and then press the accelerator. The brake slows the car down, and when it comes to a stop, it returns to a neutral range. An auto gear-up feature helps resume movement efficiently. To reverse, the user must first enter neutral by pressing the button, then downshift and press the accelerator. </p><br>
+
+<p>The pit limiter restricts the car's top speed and can be toggled on or off. In manual mode, operation becomes more involved, as the user must shift up and down with precise timing. A data structure named "settings" contains an array where each element corresponds to a gear, from neutral to 7th gear. Each gear is defined by a sub-array of three values: minimum ESC speed, maximum ESC speed, and acceleration. To begin driving manually, the user sets the transmission mode to manual, upshifts, and presses the accelerator. A shift indicator on the display shows the current speed range. If the user reaches the maximum ESC speed of a gear, the car hits the redline and won't accelerate further until an upshift occurs. </p><br>
+
+<p>The acceleration value for each gear is multiplied by a number between 0 and 1, which reflects how far the acceleration pedal is pressed. This final value is added to the speed on each code cycle. This means acceleration is generally faster when shifting later. Downshifting introduces engine braking; when the user downshifts, the speed is set to the maximum ESC speed of the lower gear. A stall condition can also occur if the user brakes too hard and the speed drops a certain amout below the minimum ESC speed for the gear. In this case, the car automatically enters neutral which disables the accelerator. </p><br>
+
+<p>Additionally, a structure called "strat list" stores up to ten custom driving profiles. Each profile contains two values: a top speed increase and an acceleration increase. The top speed increase is added to the maximum ESC speed of the 7th gear, effectively raising the vehicle's overall speed cap. All gear speeds are recalculated accordingly to maintain a balanced gear ratio. The acceleration increase makes the car more responsive. However, higher values consume more battery power, reducing the overall drive time. </p><br>
+<div class="img_field"><img src="img/code_sniply.png" alt="" draggable="false"></div>
+<br>
+<p>The micro FPV camera uses an external method for video transmission. The camera antenna has an integrated transmitter, and any compatible device equipped with a receiver can display the video feed in real time.</p>
+<br>
+<div class="img_field"><video src="img/video/fpvcampov.mp4" draggable="false" controls></video></div>
+<br>
+<p>Several technical challenges emerged during Project Twintail. The first major issue occurred during soldering, when improper technique resulted in a fried Arduino board. With time and practice, soldering skills improved. The second significant problem involved one Arduino not communicating properly with the NRF24L01 module. After troubleshooting, it was determined that the Arduino itself was defective. The most serious issue, however, involved a conflict between required pins. The rotary encoder needed interrupt-capable pins to function correctly, but these happened to overlap with the CE and CSN pins required by the NRF24L01 module on the Arduino Pro Mini. At first, this seemed like a project-ending obstacle. After careful analysis, a solution was implemented: a separate Arduino Uno was used to read the rotary encoder data and send it via serial communication to the Pro Mini. While this solved the pin conflict, it introduced latency and occasional data interference.</p>
+<br>
+<p>One persistent problem remains unresolved. Although the car’s speed system works well and the vehicle is highly responsive, the steering servo experiences significant jitter. Initially, this was assumed to be a power issue, but even after introducing an external power supply, the problem persisted. It likely stems from a more complex electronic issue that is currently beyond my understanding. I hope that as I continue my studies, I will acquire the knowledge needed to identify and fix this problem.</p>
+<br>
+<div class="img_field"><img src="img/DSC03195.JPG" alt="" draggable="false"></div>
+<br>
+<p>Looking ahead, I have many ambitions for the future of this project. I hope to eventually design my own RC car from the ground up, incorporating a better steering system, potentially with force feedback. I also want to add exciting features like functional lights and a DRS system for the rear wing. My research has shown that boards such as the ESP32 offer superior performance compared to traditional Arduino boards, especially when using protocols like ESP-NOW or Wi-Fi. Combining these with platforms like the Raspberry Pi could enable web-based control interfaces and enhance the car’s capabilities.</p>
+<br>
+<p>For now, this phase of the project has concluded. It has been both enjoyable and educational, and it has truly sparked my passion for engineering. I look forward to continuing this journey and bringing more advanced ideas to life in the future.</p>
+<br>
+
+
+
+
+</div>
+    </div>
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>
